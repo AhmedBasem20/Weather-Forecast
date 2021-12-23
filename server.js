@@ -1,4 +1,4 @@
-projectData = {};
+let projectData = {};
 
 const express = require('express');
 const app = express();
@@ -21,12 +21,21 @@ function listening(){
     console.log('Server is running...');
     console.log(`running on localhost: ${port}`);
 };
-  const data = [];
-  app.post('/add', addMovie);
-  function addMovie(req,res){
-    data.push(req.body);
+  //Post request to get the data from the client side and store it on the projectData object.
+  let data = {};
+  app.post('/', addData);
+  function addData(req,res){
+    data = {
+      temprature: req.body.temprature,
+      newDate: req.body.newDate,
+      mood: req.body.mood
+    }
     console.log(data);
+    projectData = data;
+    console.log('projectData: ');
+    console.log(projectData);
   };
-  app.get('/', function(req,res){
-    res.send(api.temp)
+  //Get request to send the stored data on the server to the cient side again
+  app.get('/data', function(req,res){
+    res.send(projectData);
   });
