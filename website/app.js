@@ -2,6 +2,7 @@
 let d = new Date();
 let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 let zipCode = "";
+let cName = "";
 let baseURL = "";
 let mood = "";
 let temprature ='';
@@ -12,6 +13,11 @@ document.getElementById('generate').addEventListener('click',execute);
 function execute(t){
  zipCode = document.getElementById('zip').value;
  baseURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=8ed93be197e1e48e18975fcf31a992bc&units=metric`;
+ if (zipCode == "")
+ {
+   cName = document.getElementById('cname').value;
+  baseURL = `https://api.openweathermap.org/data/2.5/weather?q=${cName}&appid=8ed93be197e1e48e18975fcf31a992bc&units=metric`;
+ }
  mood = document.getElementById('feelings').value;
     getTemp(baseURL)
     .then(function(temprature){
